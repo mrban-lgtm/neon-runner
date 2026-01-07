@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Runner: Mobile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="ui-layer">
+            <div id="splash-screen" class="ui-overlay" onclick="initGameAudio()">
+                <div class="overlay-content">
+                    <h1 class="glitch-text" style="font-size: 60px;">SYSTEM BOOT</h1>
+                    <p style="color: #00f3ff; margin-top: 20px; font-size: 18px; letter-spacing: 2px;">
+                        КОСНИСЬ ЭКРАНА
+                    </p>
+                    <div class="loader"></div>
+                </div>
+            </div>
+
+            <div id="start-screen" class="ui-panel hidden">
+                <div class="hud-right">
+                    <button id="mute-btn" onclick="toggleMute()">🔊</button>
+                </div>
+                <h1 class="game-title">NEON<br>RUNNER</h1>
+                <div class="bank-display"><span class="icon">💎</span> <span id="bank-total">0</span></div>
+                <div class="shop-container">
+                    <div class="char-tabs">
+                        <button class="char-tab active" onclick="switchChar('human')">ЛЮДИ</button>
+                        <button class="char-tab" onclick="switchChar('robot')">РОБОТЫ</button>
+                        <button class="char-tab" onclick="switchChar('alien')">ЧУЖИЕ</button>
+                    </div>
+                    <div class="skin-area"><div id="skin-grid"></div></div>
+                </div>
+                <div class="controls-hint">
+                    <div class="key-group">
+                        <div class="key">←</div>
+                        <div class="key">→</div>
+                        <span>ДВИЖЕНИЕ</span>
+                    </div>
+                    <div class="key-group">
+                        <div class="key">↑</div>
+                        <span>ПРЫЖОК</span>
+                    </div>
+                </div>
+                <button class="main-btn play" onclick="startGame()">ЗАПУСК СИСТЕМЫ</button>
+            </div>
+
+            <div id="game-hud" class="ui-panel hidden">
+                <div class="hud-top">
+                    <div class="stats-left">
+                        <div class="stat-row">
+                            <div class="stat-box score"><span class="label">DIST</span><span id="score">0000</span></div>
+                            <div class="stat-box coins"><span class="label">CASH</span><span id="coin-count">0</span></div>
+                        </div>
+                        <div id="powerup-container" class="powerup-box hidden">
+                            <div class="power-icon-wrapper"><canvas id="powerup-icon-canvas" width="24" height="24"></canvas></div>
+                            <div class="progress-track"><div id="powerup-bar"></div></div>
+                        </div>
+                    </div>
+                    <div class="hud-right">
+                        <button id="mute-btn" onclick="toggleMute()">🔊</button>
+                        <button id="pause-btn" onclick="togglePause()">||</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pause-menu" class="ui-overlay hidden">
+                <div class="overlay-content">
+                    <h2>ПАУЗА</h2>
+                    <button class="main-btn" onclick="togglePause()">ПРОДОЛЖИТЬ</button>
+                    <button class="main-btn exit" onclick="goToMenu()">В МЕНЮ</button>
+                </div>
+            </div>
+
+            <div id="danger-vignette"></div>
+            <div id="center-msg" class="hidden"></div>
+
+            <div id="game-over-screen" class="ui-overlay hidden">
+                <div class="overlay-content">
+                    <h1 class="glitch-text">СБОЙ</h1>
+                    <p class="reason" id="death-reason">СТОЛКНОВЕНИЕ</p>
+                    <div class="result-grid">
+                        <div class="result-item"><span>СЧЕТ</span><span id="final-score" class="res-val">0</span></div>
+                        <div class="result-item"><span>МОНЕТЫ</span><span id="final-coins" class="res-val">0</span></div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="main-btn" onclick="startGame()">ПОВТОРИТЬ</button>
+                        <button class="main-btn exit" onclick="goToMenu()">МЕНЮ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <canvas id="gameCanvas" width="480" height="720"></canvas>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
